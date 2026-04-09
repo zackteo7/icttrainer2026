@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT Trainer (Punggol) — Candidate Screening | The Talent People</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1F4E96;
+    --blue-dark: #163a72;
+    --blue-light: #e8eef8;
+    --gold: #C9A84C;
+    --text: #1a1a2e;
+    --muted: #6b7280;
+    --border: #d1d9e6;
+    --white: #ffffff;
+    --error: #dc2626;
+    --success: #16a34a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f4f6fb;
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--blue);
+    padding: 28px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .logo-blocks {
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+  }
+
+  .block-tall {
+    width: 8px;
+    height: 22px;
+    background: var(--white);
+    border-radius: 1px;
+  }
+
+  .block-short {
+    width: 8px;
+    height: 14px;
+    background: var(--gold);
+    border-radius: 1px;
+  }
+
+  .logo-text {
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+
+  .header-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 8px;
+  }
+
+  .header-sub {
+    color: rgba(255,255,255,0.75);
+    font-size: 13px;
+    font-weight: 300;
+  }
+
+  /* Hero */
+  .hero {
+    background: var(--blue);
+    padding: 0 40px 48px;
+    border-bottom: 3px solid var(--gold);
+  }
+
+  .role-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    color: var(--white);
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .hero p {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* Progress */
+  .progress-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 20px 0;
+  }
+
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 32px;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+  }
+
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    transition: all 0.3s;
+    z-index: 1;
+  }
+
+  .step.active .step-circle {
+    border-color: var(--blue);
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .step.done .step-circle {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--white);
+  }
+
+  .step-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .step.active .step-label { color: var(--blue); }
+  .step.done .step-label { color: var(--gold); }
+
+  .step-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin-top: -22px;
+    transition: background 0.3s;
+  }
+
+  .step-line.done { background: var(--gold); }
+
+  /* Form container */
+  .form-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Section */
+  .section {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    padding: 16px 24px;
+    background: var(--blue-light);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-number {
+    width: 24px;
+    height: 24px;
+    background: var(--blue);
+    color: var(--white);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .section-body {
+    padding: 24px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Fields */
+  .field { display: flex; flex-direction: column; gap: 6px; }
+
+  label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  label .req {
+    color: var(--gold);
+    margin-left: 2px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+    appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--blue);
+  }
+
+  input.error, select.error, textarea.error {
+    border-color: var(--error);
+  }
+
+  .error-msg {
+    font-size: 12px;
+    color: var(--error);
+    display: none;
+  }
+
+  .field.has-error .error-msg { display: block; }
+  .field.has-error input,
+  .field.has-error select,
+  .field.has-error textarea { border-color: var(--error); }
+
+  /* Fixed field */
+  .fixed-field {
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    background: #f8fafc;
+    font-size: 14px;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* Checkbox group */
+  .checkbox-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 4px 0;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    accent-color: var(--blue);
+    flex-shrink: 0;
+    padding: 0;
+  }
+
+  .checkbox-item span {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  /* Radio */
+  .radio-group {
+    display: flex;
+    gap: 20px;
+    padding: 4px 0;
+  }
+
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .radio-item input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--blue);
+    flex-shrink: 0;
+    padding: 0;
+  }
+
+  .radio-item span { font-size: 14px; }
+
+  /* Conditional field */
+  .conditional { display: none; margin-top: 10px; }
+  .conditional.show { display: block; }
+
+  /* Consent box */
+  .consent-box {
+    background: var(--blue-light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .consent-box input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--blue);
+    flex-shrink: 0;
+    margin-top: 2px;
+    padding: 0;
+  }
+
+  .consent-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .consent-text strong { color: var(--blue); }
+
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+    padding: 0 4px;
+  }
+
+  .btn-back {
+    padding: 12px 28px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-back:hover { border-color: var(--blue); color: var(--blue); }
+
+  .btn-next, .btn-submit {
+    padding: 12px 32px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-next:hover, .btn-submit:hover { background: var(--blue-dark); }
+
+  .btn-submit { background: var(--gold); }
+  .btn-submit:hover { background: #b8932f; }
+
+  /* Success screen */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .success-screen.show { display: block; }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+  }
+
+  .success-icon svg { width: 32px; height: 32px; }
+
+  .success-screen h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .success-screen p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+
+  @media (max-width: 560px) {
+    .header { padding: 20px; }
+    .hero { padding: 0 20px 36px; }
+    .hero h1 { font-size: 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .checkbox-group { grid-template-columns: 1fr; }
+    .radio-group { flex-direction: column; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-mark">
+    <div class="logo-blocks">
+      <div class="block-tall"></div>
+      <div class="block-short"></div>
+    </div>
+    <span class="logo-text">The Talent People</span>
+  </div>
+  <div class="header-divider"></div>
+  <span class="header-sub">EA Licence 24C2589</span>
+</div>
+
+<div class="hero">
+  <div style="padding-top: 36px;">
+    <div class="role-badge">Now Hiring</div>
+    <h1>ICT Trainer<br>Punggol</h1>
+    <p>Complete all fields below. Your information will be reviewed by our recruitment team and kept strictly confidential.</p>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar">
+    <div class="step active" id="step1">
+      <div class="step-circle">1</div>
+      <div class="step-label">Your Details</div>
+    </div>
+    <div class="step-line" id="line1"></div>
+    <div class="step active" id="step2">
+      <div class="step-circle">2</div>
+      <div class="step-label">Experience & Skills</div>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 16L13 23L26 9" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Application Received</h2>
+    <p>Thank you for your interest in the ICT Trainer (Punggol) role. Our team will review your submission and be in touch shortly if you are shortlisted.</p>
+  </div>
+
+  <form id="screeningForm" action="https://formspree.io/f/mqegogdp" method="POST">
+
+    <!-- Hidden fields -->
+    <input type="hidden" name="position" value="ICT Trainer (Punggol)">
+    <input type="hidden" name="_subject" value="New Screening — ICT Trainer (Punggol)">
+
+    <!-- ===== PAGE 1 ===== -->
+    <div class="page active" id="page1">
+
+      <!-- Section 1: Personal Particulars -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <div class="section-title">Personal Particulars</div>
+        </div>
+        <div class="section-body">
+          <div class="field-row">
+            <div class="field" id="f-name">
+              <label>Full Name (as per NRIC) <span class="req">*</span></label>
+              <input type="text" name="full_name" placeholder="e.g. Tan Wei Ming">
+              <span class="error-msg">Please enter your full name.</span>
+            </div>
+            <div class="field" id="f-contact">
+              <label>Contact Number <span class="req">*</span></label>
+              <input type="tel" name="contact_number" placeholder="e.g. 9123 4567">
+              <span class="error-msg">Please enter your contact number.</span>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field" id="f-email">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" name="email" placeholder="e.g. name@email.com">
+              <span class="error-msg">Please enter a valid email address.</span>
+            </div>
+            <div class="field" id="f-nationality">
+              <label>Nationality <span class="req">*</span></label>
+              <select name="nationality">
+                <option value="">Select</option>
+                <option>Singapore Citizen</option>
+                <option>Singapore PR</option>
+                <option>Employment Pass</option>
+                <option>S Pass</option>
+                <option>Work Permit</option>
+              </select>
+              <span class="error-msg">Please select your nationality status.</span>
+            </div>
+          </div>
+          <div class="field" id="f-area">
+            <label>Current Residential Area <span class="req">*</span></label>
+            <input type="text" name="residential_area" placeholder="e.g. Punggol, Sengkang, Tampines">
+            <span class="error-msg">Please enter your residential area.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Position Applied -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">Position Applied</div>
+        </div>
+        <div class="section-body">
+          <div class="field">
+            <label>Position Applied For</label>
+            <div class="fixed-field">ICT Trainer — Punggol</div>
+          </div>
+          <div class="field-row">
+            <div class="field" id="f-avail">
+              <label>Availability to Start <span class="req">*</span></label>
+              <input type="date" name="availability_to_start">
+              <span class="error-msg">Please select your availability.</span>
+            </div>
+            <div class="field" id="f-salary">
+              <label>Expected Monthly Salary (SGD) <span class="req">*</span></label>
+              <input type="number" name="expected_salary" placeholder="e.g. 2800" min="0">
+              <span class="error-msg">Please enter your expected salary.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Qualifications -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <div class="section-title">Qualifications</div>
+        </div>
+        <div class="section-body">
+          <div class="field" id="f-edu">
+            <label>Highest Education Level <span class="req">*</span></label>
+            <select name="education_level">
+              <option value="">Select</option>
+              <option>O-Level / N-Level</option>
+              <option>Diploma</option>
+              <option>Advanced Diploma</option>
+              <option>Bachelor's Degree</option>
+              <option>Postgraduate</option>
+              <option>Others</option>
+            </select>
+            <span class="error-msg">Please select your education level.</span>
+          </div>
+          <div class="field-row">
+            <div class="field" id="f-field">
+              <label>Field of Study / Specialisation <span class="req">*</span></label>
+              <input type="text" name="field_of_study" placeholder="e.g. Multimedia, IT, Design">
+              <span class="error-msg">Please enter your field of study.</span>
+            </div>
+            <div class="field" id="f-institution">
+              <label>Name of Institution <span class="req">*</span></label>
+              <input type="text" name="institution" placeholder="e.g. Nanyang Polytechnic">
+              <span class="error-msg">Please enter your institution.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn-next" onclick="goToPage2()">Next →</button>
+      </div>
+
+    </div><!-- end page 1 -->
+
+    <!-- ===== PAGE 2 ===== -->
+    <div class="page" id="page2">
+
+      <!-- Section 4: Work Experience -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <div class="section-title">Work Experience</div>
+        </div>
+        <div class="section-body">
+          <div class="field-row">
+            <div class="field" id="f-jobtitle">
+              <label>Current / Most Recent Job Title <span class="req">*</span></label>
+              <input type="text" name="current_job_title" placeholder="e.g. ICT Support Officer">
+              <span class="error-msg">Please enter your job title.</span>
+            </div>
+            <div class="field" id="f-years">
+              <label>Total Years of Relevant ICT Experience <span class="req">*</span></label>
+              <select name="years_experience">
+                <option value="">Select</option>
+                <option>Less than 1 year</option>
+                <option>1 – 2 years</option>
+                <option>3 – 5 years</option>
+                <option>6 – 10 years</option>
+                <option>More than 10 years</option>
+              </select>
+              <span class="error-msg">Please select your years of experience.</span>
+            </div>
+          </div>
+          <div class="field" id="f-school">
+            <label>Have you worked in a school environment before? <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-item">
+                <input type="radio" name="school_experience" value="Yes" onchange="toggleSchoolDetail(this)">
+                <span>Yes</span>
+              </label>
+              <label class="radio-item">
+                <input type="radio" name="school_experience" value="No" onchange="toggleSchoolDetail(this)">
+                <span>No</span>
+              </label>
+            </div>
+            <span class="error-msg">Please select an option.</span>
+            <div class="conditional" id="school-detail">
+              <input type="text" name="school_detail" placeholder="Which school and in what capacity?">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Technical Skills -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <div class="section-title">Technical Skills</div>
+        </div>
+        <div class="section-body">
+          <div class="field" id="f-adobe">
+            <label>Adobe Tools (select all that apply) <span class="req">*</span></label>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="adobe[]" value="Premiere Pro"><span>Premiere Pro</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="adobe[]" value="After Effects"><span>After Effects</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="adobe[]" value="Audition"><span>Audition</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="adobe[]" value="Photoshop"><span>Photoshop</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="adobe[]" value="Illustrator"><span>Illustrator</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="adobe[]" value="InDesign"><span>InDesign</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="adobe[]" value="None"><span>None</span></label>
+            </div>
+            <span class="error-msg">Please select at least one option.</span>
+          </div>
+          <div class="field" id="f-apple">
+            <label>Apple Tools (select all that apply) <span class="req">*</span></label>
+            <div class="checkbox-group">
+              <label class="checkbox-item"><input type="checkbox" name="apple[]" value="iMovie"><span>iMovie</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="apple[]" value="Final Cut Pro"><span>Final Cut Pro</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="apple[]" value="GarageBand"><span>GarageBand</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="apple[]" value="Logic Pro"><span>Logic Pro</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="apple[]" value="Motion"><span>Motion</span></label>
+              <label class="checkbox-item"><input type="checkbox" name="apple[]" value="None"><span>None</span></label>
+            </div>
+            <span class="error-msg">Please select at least one option.</span>
+          </div>
+          <div class="field" id="f-ai">
+            <label>Have you used AI-related tools in your work? <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-item">
+                <input type="radio" name="ai_tools" value="Yes" onchange="toggleAIDetail(this)">
+                <span>Yes</span>
+              </label>
+              <label class="radio-item">
+                <input type="radio" name="ai_tools" value="No" onchange="toggleAIDetail(this)">
+                <span>No</span>
+              </label>
+            </div>
+            <span class="error-msg">Please select an option.</span>
+            <div class="conditional" id="ai-detail">
+              <input type="text" name="ai_tools_detail" placeholder="Please specify (e.g. ChatGPT, Copilot, Midjourney)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 6: Role-Specific -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">6</div>
+          <div class="section-title">Role-Specific</div>
+        </div>
+        <div class="section-body">
+          <div class="field" id="f-portfolio">
+            <label>Are you able to provide a media portfolio or work samples for interview? <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="portfolio" value="Yes"><span>Yes</span></label>
+              <label class="radio-item"><input type="radio" name="portfolio" value="No"><span>No</span></label>
+            </div>
+            <span class="error-msg">Please select an option.</span>
+          </div>
+          <div class="field" id="f-commit">
+            <label>Are you able to commit to the full contract period: 1 July 2026 – 31 December 2027? <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="commit_duration" value="Yes"><span>Yes</span></label>
+              <label class="radio-item"><input type="radio" name="commit_duration" value="No"><span>No</span></label>
+            </div>
+            <span class="error-msg">Please select an option.</span>
+          </div>
+          <div class="field" id="f-onsite">
+            <label>Are you able to work on-site Monday to Friday? <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-item"><input type="radio" name="onsite" value="Yes"><span>Yes</span></label>
+              <label class="radio-item"><input type="radio" name="onsite" value="No"><span>No</span></label>
+            </div>
+            <span class="error-msg">Please select an option.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 7: Consent -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">7</div>
+          <div class="section-title">Data Protection Consent</div>
+        </div>
+        <div class="section-body">
+          <div class="field" id="f-consent">
+            <div class="consent-box">
+              <input type="checkbox" name="pdpa_consent" id="pdpaCheck" value="Agreed">
+              <label for="pdpaCheck" class="consent-text">
+                I consent to <strong>The Talent People Pte. Ltd. (EA Licence: 24C2589)</strong> collecting, using, and processing my personal data for the purposes of this job application, in accordance with the <strong>Personal Data Protection Act (PDPA)</strong>. I understand my data will be kept confidential and used only for recruitment purposes.
+              </label>
+            </div>
+            <span class="error-msg">You must agree to the consent before submitting.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" class="btn-back" onclick="goToPage1()">← Back</button>
+        <button type="submit" class="btn-submit">Submit Application</button>
+      </div>
+
+    </div><!-- end page 2 -->
+
+  </form>
+
+</div><!-- end form-container -->
+
+<div class="footer">
+  © The Talent People Pte. Ltd. · EA Licence 24C2589 · UEN 202432943E · 75 High Street, Singapore 179435
+</div>
+
+<script>
+  function goToPage2() {
+    if (!validatePage1()) return;
+    document.getElementById('page1').classList.remove('active');
+    document.getElementById('page2').classList.add('active');
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step1').classList.add('done');
+    document.getElementById('step1').querySelector('.step-circle').textContent = '✓';
+    document.getElementById('line1').classList.add('done');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goToPage1() {
+    document.getElementById('page2').classList.remove('active');
+    document.getElementById('page1').classList.add('active');
+    document.getElementById('step1').classList.remove('done');
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('step1').querySelector('.step-circle').textContent = '1';
+    document.getElementById('line1').classList.remove('done');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleSchoolDetail(el) {
+    document.getElementById('school-detail').classList.toggle('show', el.value === 'Yes');
+  }
+
+  function toggleAIDetail(el) {
+    document.getElementById('ai-detail').classList.toggle('show', el.value === 'Yes');
+  }
+
+  function validatePage1() {
+    let valid = true;
+    const checks = [
+      { id: 'f-name', sel: 'input', test: v => v.trim() !== '' },
+      { id: 'f-contact', sel: 'input', test: v => v.trim() !== '' },
+      { id: 'f-email', sel: 'input', test: v => /\S+@\S+\.\S+/.test(v) },
+      { id: 'f-nationality', sel: 'select', test: v => v !== '' },
+      { id: 'f-area', sel: 'input', test: v => v.trim() !== '' },
+      { id: 'f-avail', sel: 'input', test: v => v !== '' },
+      { id: 'f-salary', sel: 'input', test: v => v !== '' },
+      { id: 'f-edu', sel: 'select', test: v => v !== '' },
+      { id: 'f-field', sel: 'input', test: v => v.trim() !== '' },
+      { id: 'f-institution', sel: 'input', test: v => v.trim() !== '' },
+    ];
+    checks.forEach(({ id, sel, test }) => {
+      const field = document.getElementById(id);
+      const el = field.querySelector(sel);
+      if (!test(el.value)) {
+        field.classList.add('has-error');
+        valid = false;
+      } else {
+        field.classList.remove('has-error');
+      }
+    });
+    return valid;
+  }
+
+  function validatePage2() {
+    let valid = true;
+
+    // Text/select fields
+    const checks = [
+      { id: 'f-jobtitle', sel: 'input', test: v => v.trim() !== '' },
+      { id: 'f-years', sel: 'select', test: v => v !== '' },
+    ];
+    checks.forEach(({ id, sel, test }) => {
+      const field = document.getElementById(id);
+      const el = field.querySelector(sel);
+      if (!test(el.value)) {
+        field.classList.add('has-error');
+        valid = false;
+      } else {
+        field.classList.remove('has-error');
+      }
+    });
+
+    // Radio groups
+    ['f-school', 'f-ai', 'f-portfolio', 'f-commit', 'f-onsite'].forEach(id => {
+      const field = document.getElementById(id);
+      const checked = field.querySelector('input[type="radio"]:checked');
+      if (!checked) { field.classList.add('has-error'); valid = false; }
+      else field.classList.remove('has-error');
+    });
+
+    // Checkbox groups
+    ['f-adobe', 'f-apple'].forEach(id => {
+      const field = document.getElementById(id);
+      const checked = field.querySelectorAll('input[type="checkbox"]:checked');
+      if (checked.length === 0) { field.classList.add('has-error'); valid = false; }
+      else field.classList.remove('has-error');
+    });
+
+    // Consent
+    const consentField = document.getElementById('f-consent');
+    const consent = document.getElementById('pdpaCheck');
+    if (!consent.checked) { consentField.classList.add('has-error'); valid = false; }
+    else consentField.classList.remove('has-error');
+
+    return valid;
+  }
+
+  document.getElementById('screeningForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    if (!validatePage2()) return;
+    try {
+      const data = new FormData(this);
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('page2').style.display = 'none';
+        document.getElementById('successScreen').classList.add('show');
+        document.querySelector('.progress-wrap').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } catch (err) {
+      alert('Something went wrong. Please try again.');
+    }
+  });
+</script>
+</body>
+</html>
