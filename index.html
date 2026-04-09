@@ -30,58 +30,86 @@
 
   /* Header */
   .header {
-    background: var(--blue);
-    padding: 28px 40px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .logo-mark {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .logo-blocks {
-    display: flex;
-    gap: 3px;
-    align-items: flex-end;
-  }
-
-  .block-tall {
-    width: 8px;
-    height: 22px;
     background: var(--white);
-    border-radius: 1px;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 3px solid var(--blue);
+    box-shadow: 0 2px 8px rgba(31,78,150,0.08);
   }
 
-  .block-short {
-    width: 8px;
-    height: 14px;
-    background: var(--gold);
-    border-radius: 1px;
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .logo-text {
-    color: var(--white);
+  .logo-svg {
+    height: 44px;
+    width: auto;
+  }
+
+  .logo-name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .logo-name-top {
     font-family: 'DM Sans', sans-serif;
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--blue);
+    letter-spacing: -0.01em;
+  }
+
+  .logo-name-top span {
+    color: var(--blue);
+  }
+
+  .logo-name-dot {
+    color: var(--gold);
+    font-weight: 800;
+  }
+
+  .logo-svg { height: 42px; width: auto; }
+
+  .logo-name {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .logo-name-line1 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--blue);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .logo-name-dot { color: var(--gold); }
+
+  .logo-name-line2 {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
     letter-spacing: 0.02em;
   }
 
   .header-divider {
     width: 1px;
-    height: 28px;
-    background: rgba(255,255,255,0.3);
-    margin: 0 8px;
+    height: 36px;
+    background: var(--border);
+    margin: 0 4px;
   }
 
   .header-sub {
-    color: rgba(255,255,255,0.75);
-    font-size: 13px;
-    font-weight: 300;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
   }
 
   /* Hero */
@@ -505,15 +533,19 @@
 <body>
 
 <div class="header">
-  <div class="logo-mark">
-    <div class="logo-blocks">
-      <div class="block-tall"></div>
-      <div class="block-short"></div>
+  <div class="logo-wrap">
+    <svg class="logo-svg" viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="16" width="10" height="10" rx="1.5" fill="#1F4E96"/>
+      <rect x="16" y="0" width="12" height="44" rx="2" fill="#1F4E96"/>
+      <rect x="34" y="12" width="12" height="32" rx="2" fill="#1F4E96"/>
+    </svg>
+    <div class="logo-name">
+      <span class="logo-name-line1">The Talent People<span class="logo-name-dot">.</span></span>
+      <span class="logo-name-line2">EA Licence 24C2589</span>
     </div>
-    <span class="logo-text">The Talent People</span>
   </div>
   <div class="header-divider"></div>
-  <span class="header-sub">EA Licence 24C2589</span>
+  <span class="header-sub">Candidate Screening Form</span>
 </div>
 
 <div class="hero">
